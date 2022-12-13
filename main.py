@@ -17,7 +17,6 @@ def main():
             accountInfo = tools.loadAccountInfo(key=api_key)
         elif choice == 'S' or choice == 's':
             script = tools.createStartupScript(key=api_key)
-            print(script)
         elif choice == 'C' or choice == 'c':
             try:
                 tools.createStartupScript(key=api_key)

@@ -34,6 +34,50 @@ def createStartupScript(key: str) -> str:
     f.write(response.text)
     return response.json()
 
+def checkStartupScripts(key: str) -> str:
+    headers = {
+        'Authorization': f'Bearer {key}',
+    }
+    response = requests.get('https://api.vultr.com/v2/startup-scripts', headers=headers)
+    return response.json()
+
+def listInstances(key: str) -> str:
+    headers = {
+        'Authorization': f'Bearer {key}',
+    }
+    response = requests.get('https://api.vultr.com/v2/instances', headers=headers)
+    return response.json()
+
+def getInstance(key: str, id: str) -> str:
+    headers = {
+        'Authorization': f'Bearer {key}',
+    }
+    response = requests.get(f'https://api.vultr.com/v2/instances/{id}', headers=headers)
+    return response.json()
+
+def createInstance(key: str, location: str, osid: str) -> str:
+    headers = {
+        'Authorization': f'Bearer {key}',
+        'Content-Type': 'application/json',
+    }
+
+    json_data = {
+        'region': 'ewr',
+        'plan': 'vc2-6c-16gb',
+        'label': 'Example Instance',
+        'os_id': 215,
+        'user_data': 'QmFzZTY0IEV4YW1wbGUgRGF0YQ==',
+        'backups': 'enabled',
+        'hostname': 'my_hostname',
+        'tags': [
+            'a tag',
+            'another',
+        ],
+    }
+
+    response = requests.post('https://api.vultr.com/v2/instances', headers=headers, json=json_data)
+
+
 def create(key: str, location: str, proxies: str, osid: str) -> str:
     headers = {'API-Key': key}
     url = 'https://api.vultr.com/v1/'
